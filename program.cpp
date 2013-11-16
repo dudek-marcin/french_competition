@@ -3,7 +3,7 @@
 int main()
 {
 	
-	cout<<"pitou"; //lol
+	cout<<"pitou"; //lola
 	
 	return 0;
 }
