@@ -8,23 +8,21 @@ using namespace std;
 void readTable(USI ***pnCoord,USI ***pnWindow, int *pnWidth,int *pnHeight,int *pnNbWindow)
 {
     USI **cords,**window;
-    unsigned int width,height;
-    unsigned int i,j;
-    unsigned int n;
-    //unsigned short int **cords, **window ;
+    USI width,height;
+    USI i,j;
+    USI n;
 
-
-    fstream tFile("input.txt",ios::in | ios::out | ios::ate);
+    fstream tFile("input.txt",ios::in);
     tFile.close();
 
-    tFile.open("input.txt");
+    tFile.open("input2.txt");
     if (tFile.good())
     {
         tFile >> width >> height;
 
-        cords = new unsigned short int * [width];
-        for (i = 0; i<width; i++)
-            cords[i] = new unsigned short int [height];
+        cords = new unsigned short int * [height];
+        for (i = 0; i<height; i++)
+            cords[i] = new unsigned short int [width];
 
         for(i = 0;i<height;i++)
         {
@@ -33,8 +31,6 @@ void readTable(USI ***pnCoord,USI ***pnWindow, int *pnWidth,int *pnHeight,int *p
                 tFile >> cords[i][j];
 
             }
-
-
         }
 
         tFile >> n;
@@ -50,7 +46,6 @@ void readTable(USI ***pnCoord,USI ***pnWindow, int *pnWidth,int *pnHeight,int *p
                 tFile >> window[i][j];
             }
         }
-
     }
     tFile.close();
 

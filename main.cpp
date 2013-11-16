@@ -3,7 +3,7 @@
 
 using namespace std;
 
-#include "src/parser.h"
+#include "parser.h"
 
 int main()
 {
