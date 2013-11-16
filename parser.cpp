@@ -5,53 +5,41 @@
 #include "parser.h"
 using namespace std;
 
-void readTable(USI ***pnCoord,USI ***pnWindow, int *pnWidth,int *pnHeight,int *pnNbWindow)
+void readTable(USI **ppnCoord,USI **pnWindow, USI *pnWidth,USI *pnHeight,USI *pnNbWindow)
 {
-    USI **cords,**window;
-    USI width,height;
     USI i,j;
-    USI n;
+    USI *pCoord = NULL;
 
-    fstream tFile("input.txt",ios::in);
-    tFile.close();
-
-    tFile.open("input2.txt");
+    fstream tFile("input2.txt",ios::in);
     if (tFile.good())
     {
-        tFile >> width >> height;
+        // Get the size of the array
+        tFile >> *pnWidth >> *pnHeight;
+        // Allocate thearray  to store the values
+        pCoord = new USI[(*pnHeight) * (*pnWidth)];
 
-        cords = new unsigned short int * [height];
-        for (i = 0; i<height; i++)
-            cords[i] = new unsigned short int [width];
-
-        for(i = 0;i<height;i++)
+        for(i = 0;i<(*pnHeight);i++)
         {
-            for(j = 0;j<width;j++)
+            for(j = 0;j<(*pnWidth);j++)
             {
-                tFile >> cords[i][j];
-
+                USI abc;
+                tFile >> abc;
+                pCoord[i*(*pnWidth) + j] = abc;
             }
         }
+        // Read the number of windows
+        tFile >> (*pnNbWindow);
+        // Allocate the array of windows
+        *pnWindow = new USI[(*pnNbWindow)*4];
 
-        tFile >> n;
-
-        window = new unsigned short int * [n];
-        for (i = 0; i<n; i++)
-            window[i] = new unsigned short int [4];
-
-        for(i = 0;i<n;i++)
+        for(i = 0;i<(*pnNbWindow);i++)
         {
             for(j = 0;j<4;j++)
             {
-                tFile >> window[i][j];
+                tFile >> (*pnWindow)[i*4 + j];
             }
         }
     }
     tFile.close();
-
-    *pnHeight = height;
-    *pnNbWindow = n;
-    *pnWidth = width;
-    *pnWindow = window;
-    *pnCoord = cords;
+    *ppnCoord = pCoord;
 }
